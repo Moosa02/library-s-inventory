@@ -103,6 +103,48 @@ const deleteBook = async(req,res)=>{
 }
 
 
+const viewBooks = async(req,res)=>{
+
+    try{
+        console.log("IN VIEW BOOKS")
+        const {searchWord} = req.body
+        console.log(searchWord)
+
+        if(searchWord == undefined){
+           const books = await Book.find();
+           console.log("IN IF CONDITION",books);
+           if (books.length === 0) {
+            return res.status(404).json({ message: "Unable to find books" });
+        } else {
+            return res.status(200).json(books);
+        }
+
+        }
+        else{
+           console.log(searchWord)
+           const books = await Book.find({
+            $or: [
+                { title: searchWord },
+                { genre: searchWord },
+                { author: searchWord }
+              ]
+          });
+           console.log("IN ELSE CONDITION",books);
+           if (books.length === 0) {
+            return res.status(404).json({ message: "Unable to find books" });
+        } else {
+            return res.status(200).json(books);
+        }
+
+        }
+    }
+    catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+
+}
 
 
-module.exports = { addBook, updateBook, deleteBook };
+
+
+module.exports = { addBook, updateBook, deleteBook, viewBooks };
