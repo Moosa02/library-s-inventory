@@ -6,6 +6,8 @@ require('dotenv').config(); // Ensure environment variables are loaded
 
 const mongoDbUrl = process.env.mongoDb_url; // Use correct environment variable name
 const bookRoutes = require("./routes/booksRoutes");
+const userRoutes = require("./routes/userRoutes")
+const borrowedBooksRoutes = require("./routes/borrowedBooksRoutes")
 
 console.log(mongoDbUrl)
 
@@ -23,6 +25,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/books", bookRoutes);
+app.use("/user",userRoutes);
+app.use("/borrowedBooks",borrowedBooksRoutes)
 
 // PORT
 const port = process.env.PORT || 4001;

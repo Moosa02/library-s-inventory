@@ -6,6 +6,25 @@ const addBook = async (req, res) => {
 
     try {
 
+        const authHeader = req.header("Authorization");
+        if (!authHeader) {
+            return res.status(401).json({ message: "Unauthorized: No token provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
+
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized: Invalid token" });
+        }
+
+        const verifiedUser = await User.findById(user.userId);
+
+        if (!verifiedUser) {
+            console.log("not  averified user")
+            return res.status(404).json({ message: "user not found" });
+        }
+
         console.log(req.body)
 
         const { title, author, genre, borrowed, publicationYear } = req.body;
@@ -39,6 +58,25 @@ const addBook = async (req, res) => {
 const updateBook = async (req, res) => {
 
     try {
+        const authHeader = req.header("Authorization");
+        if (!authHeader) {
+            return res.status(401).json({ message: "Unauthorized: No token provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
+
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized: Invalid token" });
+        }
+
+        const verifiedUser = await User.findById(user.userId);
+
+        if (!verifiedUser) {
+            console.log("not  averified user")
+            return res.status(404).json({ message: "user not found" });
+        }
+
         const { id } = req.params; // Assuming the book ID is passed as a URL parameter
         const { title, author, genre, borrowed, publicationYear } = req.body;
 
@@ -79,6 +117,26 @@ const deleteBook = async(req,res)=>{
 
 
     try {
+
+        const authHeader = req.header("Authorization");
+        if (!authHeader) {
+            return res.status(401).json({ message: "Unauthorized: No token provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
+
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized: Invalid token" });
+        }
+
+        const verifiedUser = await User.findById(user.userId);
+
+        if (!verifiedUser) {
+            console.log("not  averified user")
+            return res.status(404).json({ message: "user not found" });
+        }
+
         const { id } = req.params; // Assuming the book ID is passed as a URL parameter
      
 
@@ -106,6 +164,26 @@ const deleteBook = async(req,res)=>{
 const viewBooks = async(req,res)=>{
 
     try{
+
+        const authHeader = req.header("Authorization");
+        if (!authHeader) {
+            return res.status(401).json({ message: "Unauthorized: No token provided" });
+        }
+
+        const token = authHeader.split(" ")[1];
+        const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
+
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized: Invalid token" });
+        }
+
+        const verifiedUser = await User.findById(user.userId);
+
+        if (!verifiedUser) {
+            console.log("not  averified user")
+            return res.status(404).json({ message: "user not found" });
+        }
+
         console.log("IN VIEW BOOKS")
         const {searchWord} = req.body
         console.log(searchWord)
