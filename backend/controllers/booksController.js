@@ -8,6 +8,7 @@ const addBook = async (req, res) => {
 
         const authHeader = req.header("Authorization");
         if (!authHeader) {
+            logger.warn("Unauthorized access attempt: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
 
@@ -15,13 +16,14 @@ const addBook = async (req, res) => {
         const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
 
         if (!user) {
+            logger.warn("Unauthorized access attempt: Invalid token");
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
 
         const verifiedUser = await User.findById(user.userId);
 
         if (!verifiedUser) {
-            console.log("not  averified user")
+            logger.warn("Unauthorized access attempt: User not verified");
             return res.status(404).json({ message: "user not found" });
         }
 
@@ -45,9 +47,11 @@ const addBook = async (req, res) => {
         await newBook.save();
 
         // Send a success response
+        logger.info(`Book has been added to library successfully. ${newBook}`)
         return res.status(201).json(newBook);
     } catch (error) {
         // Send an error response
+        logger.error("Error borrowing book", error);
         return res.status(400).json({ error: error.message });
     }
 
@@ -60,6 +64,7 @@ const updateBook = async (req, res) => {
     try {
         const authHeader = req.header("Authorization");
         if (!authHeader) {
+            logger.warn("Unauthorized access attempt: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
 
@@ -67,13 +72,14 @@ const updateBook = async (req, res) => {
         const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
 
         if (!user) {
+            logger.warn("Unauthorized access attempt: Invalid token");
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
 
         const verifiedUser = await User.findById(user.userId);
 
         if (!verifiedUser) {
-            console.log("not  averified user")
+            logger.warn("Unauthorized access attempt: User not verified");
             return res.status(404).json({ message: "user not found" });
         }
 
@@ -84,6 +90,7 @@ const updateBook = async (req, res) => {
         const book = await Book.findById(id);
 
         if (!book) {
+            logger.warn(`No book was found with id: ${id}`);
             return res.status(404).json({ message: "Book not found" });
         }
 
@@ -105,11 +112,13 @@ const updateBook = async (req, res) => {
         await book.save();
 
         // Send a success response
-        res.status(200).json(book);
+        logger.info(`Book's information has been updated successfully. ${book}`);
+        return res.status(200).json(book);
 
     }
     catch (err) {
-        res.status(400).json({ error: error.message });
+        logger.error("Error borrowing book", error);
+        return res.status(400).json({ error: error.message });
     }
 }
 
@@ -120,6 +129,7 @@ const deleteBook = async(req,res)=>{
 
         const authHeader = req.header("Authorization");
         if (!authHeader) {
+            logger.warn("Unauthorized access attempt: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
 
@@ -127,13 +137,14 @@ const deleteBook = async(req,res)=>{
         const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
 
         if (!user) {
+            logger.warn("Unauthorized access attempt: Invalid token");
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
 
         const verifiedUser = await User.findById(user.userId);
 
         if (!verifiedUser) {
-            console.log("not  averified user")
+            logger.warn("Unauthorized access attempt: User not verified");
             return res.status(404).json({ message: "user not found" });
         }
 
@@ -144,6 +155,7 @@ const deleteBook = async(req,res)=>{
         const book = await Book.findById(id);
 
         if (!book) {
+          logger.warn(`No book was found with id: ${id}`);
           return res.status(404).json({ error: 'Book not found' });
       }
 
@@ -151,12 +163,14 @@ const deleteBook = async(req,res)=>{
       await Book.deleteOne({ _id: id });
 
       // Return a success response
+      logger.info(`Book has been successfully deleted with id: ${id}`);
       return res.status(200).json({ message: 'Book deleted successfully' });
 
      
     }
     catch (err) {
-        res.status(400).json({ error: error.message });
+        logger.error("Error borrowing book", error);
+        return res.status(400).json({ error: error.message });
     }
 }
 
@@ -167,6 +181,7 @@ const viewBooks = async(req,res)=>{
 
         const authHeader = req.header("Authorization");
         if (!authHeader) {
+            logger.warn("Unauthorized access attempt: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
 
@@ -174,13 +189,14 @@ const viewBooks = async(req,res)=>{
         const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
 
         if (!user) {
+            logger.warn("Unauthorized access attempt: Invalid token");
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
 
         const verifiedUser = await User.findById(user.userId);
 
         if (!verifiedUser) {
-            console.log("not  averified user")
+            logger.warn("Unauthorized access attempt: User not verified");
             return res.status(404).json({ message: "user not found" });
         }
 
@@ -192,8 +208,10 @@ const viewBooks = async(req,res)=>{
            const books = await Book.find();
            console.log("IN IF CONDITION",books);
            if (books.length === 0) {
+            logger.warn(`Unable to find Books`);
             return res.status(404).json({ message: "Unable to find books" });
         } else {
+            logger.info(`Following books are present: ${books}`);
             return res.status(200).json(books);
         }
 
@@ -209,15 +227,18 @@ const viewBooks = async(req,res)=>{
           });
            console.log("IN ELSE CONDITION",books);
            if (books.length === 0) {
+            logger.warn(`Unable to find Books`);
             return res.status(404).json({ message: "Unable to find books" });
         } else {
+            logger.info(`Searched books are : ${books}`);
             return res.status(200).json(books);
         }
 
         }
     }
     catch (err) {
-        res.status(400).json({ error: err.message });
+        logger.error("Error borrowing book", error);
+        return res.status(400).json({ error: err.message });
     }
 
 }

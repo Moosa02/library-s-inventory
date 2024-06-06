@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const authMiddleware = require("../auth/authMiddleware");
+const logger = require('../logger');
 
 const registerUser = async (req, res) => {
 
@@ -9,6 +10,7 @@ const registerUser = async (req, res) => {
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
+            logger.warn(`User with existing email is trying to register again`);
             return res.status(400).json({ message: "User with this email already exists" });
         }
 
@@ -25,10 +27,12 @@ const registerUser = async (req, res) => {
 
         if (saved) {
             const token = authMiddleware.generateToken(newUser);
+            logger.info(`User has been registered successfully. ${newUser}`);
             return res.status(201).json({ message: "User registered successfully", token });
         }
 
     } catch (err) {
+        logger.error("Error borrowing book", error);
         res.status(500).json({ message: "Internal Server Error" + err });
     }
 }
@@ -40,6 +44,7 @@ const login = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
+            logger.warn(`No user could be found with email: ${email}`);
             return res.status(401).json({ message: "Invalid email or password" });
         }
 
@@ -48,11 +53,14 @@ const login = async (req, res) => {
         if (isPasswordValid) {
             // Generate a JWT token and include user details in the response
             const token = authMiddleware.generateToken(user);
+            logger.info(`Succesful Login by user: ${user}`);
             return res.status(200).json({ message: "Login successful", token, user });
         }
 
+        logger.warn(`Invalid email of password entered`);
         return res.status(401).json({ message: "Invalid email or password" });
     } catch (error) {
+        logger.error("Error borrowing book", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
@@ -62,6 +70,7 @@ const updateUser = async (req, res) => {
     try {
         const authHeader = req.header("Authorization");
         if (!authHeader) {
+            logger.warn("Unauthorized access attempt: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
 
@@ -69,13 +78,14 @@ const updateUser = async (req, res) => {
         const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
 
         if (!user) {
+            logger.warn("Unauthorized access attempt: Invalid token");
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
 
         const verifiedUser = await User.findById(user.userId);
 
         if (!verifiedUser) {
-            console.log("not  averified user")
+            logger.warn("Unauthorized access attempt: User not verified");
             return res.status(404).json({ message: "user not found" });
         }
 
@@ -90,12 +100,15 @@ const updateUser = async (req, res) => {
 
         const updatedUser = await User.findByIdAndUpdate(verifiedUser._id, temp, { new: true });
         if (!updatedUser) {
+            logger.warn(`No user was found with id: ${verifiedUser._id}`);
             return res.status(404).json({ message: 'User not found' });
         }
 
+        logger.info(`User has been updated: Following are the deetails of user: ${updatedUser}`);
         res.status(200).json(updatedUser);
 
     } catch (error) {
+        logger.error("Error borrowing book", error);
         res.status(500).json({ error: error.message });
     }
 }
@@ -106,6 +119,7 @@ const deleteUser = async (req, res) => {
 
         const authHeader = req.header("Authorization");
         if (!authHeader) {
+            logger.warn("Unauthorized access attempt: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
 
@@ -113,25 +127,31 @@ const deleteUser = async (req, res) => {
         const user = await authMiddleware.verifyToken(token); // Ensure verifyToken is an async function
 
         if (!user) {
+            logger.warn("Unauthorized access attempt: Invalid token");
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
 
         const verifiedUser = await User.findById(user.userId);
 
         if (!verifiedUser) {
-            console.log("not  averified user")
+            logger.warn("Unauthorized access attempt: User not verified");
             return res.status(404).json({ message: "user not found" });
         }
+
         console.log("VEIRFIED USER ID,", verifiedUser._id)
 
         const deletedUser = await User.findByIdAndDelete(verifiedUser._id);
 
         if (!deletedUser) {
+            logger.warn(`No user was found with id: ${verifiedUser._id}`);
             return res.status(404).json({ message: 'User not found' });
         }
 
+
+        logger.info(`User has been deleted with id: ${verifiedUser._id}`);
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
+        logger.error("Error borrowing book", error);
         res.status(500).json({ error: error.message });
     }
 };
