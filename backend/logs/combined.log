@@ -1,0 +1,164 @@
+2024-06-07 02:47:58 info: User has been registered successfully. {
+  name: 'Hamza Saeed',
+  email: 'HAMZZA@gmail.com',
+  contactNumber: '02312312',
+  password: '$2b$10$oUZADTws3PE2xrEDIYuMHOcIYXdvheHw76smI/XQCGNAcoVbXl9pG',
+  _id: new ObjectId('66622e8e2ebb91007ec2baa1'),
+  __v: 0
+}
+2024-06-07 02:48:32 info: User has been registered successfully. {
+  name: 'Muhammad Moosa',
+  email: 'muhammadmoosa448@gmail.com',
+  contactNumber: '023123124234',
+  password: '$2b$10$kbkEey4VknGTgM6D3PG3V.PBuMDKYdbQ69OGURUioOz2svQ6pYRMO',
+  _id: new ObjectId('66622eb02ebb91007ec2baa4'),
+  __v: 0
+}
+2024-06-07 02:48:58 info: User has been registered successfully. {
+  name: 'Haroon Raseeh',
+  email: 'haroon12@gmail.com',
+  contactNumber: '023123124234',
+  password: '$2b$10$ni7mv0K5KOZ7izU3I6/5uuHMgEJnl3349CGEEome2CaVICJ.v9aWu',
+  _id: new ObjectId('66622eca2ebb91007ec2baa7'),
+  __v: 0
+}
+2024-06-07 02:49:53 info: Succesful Login by user: {
+  _id: new ObjectId('66622eb02ebb91007ec2baa4'),
+  name: 'Muhammad Moosa',
+  email: 'muhammadmoosa448@gmail.com',
+  contactNumber: '023123124234',
+  password: '$2b$10$kbkEey4VknGTgM6D3PG3V.PBuMDKYdbQ69OGURUioOz2svQ6pYRMO',
+  __v: 0
+}
+2024-06-07 02:51:04 info: User has been updated: Following are the deetails of user: {
+  _id: new ObjectId('66622eb02ebb91007ec2baa4'),
+  name: 'Muhammad Moosa',
+  email: 'muhammadmoosa448@gmail.com',
+  contactNumber: '03355078588',
+  password: '$2b$10$kbkEey4VknGTgM6D3PG3V.PBuMDKYdbQ69OGURUioOz2svQ6pYRMO',
+  __v: 0
+}
+2024-06-07 02:52:19 info: Succesful Login by user: {
+  _id: new ObjectId('66622eca2ebb91007ec2baa7'),
+  name: 'Haroon Raseeh',
+  email: 'haroon12@gmail.com',
+  contactNumber: '023123124234',
+  password: '$2b$10$ni7mv0K5KOZ7izU3I6/5uuHMgEJnl3349CGEEome2CaVICJ.v9aWu',
+  __v: 0
+}
+2024-06-07 02:52:35 info: User has been deleted with id: 66622eca2ebb91007ec2baa7
+2024-06-07 02:53:35 info: Succesful Login by user: {
+  _id: new ObjectId('66622eb02ebb91007ec2baa4'),
+  name: 'Muhammad Moosa',
+  email: 'muhammadmoosa448@gmail.com',
+  contactNumber: '03355078588',
+  password: '$2b$10$kbkEey4VknGTgM6D3PG3V.PBuMDKYdbQ69OGURUioOz2svQ6pYRMO',
+  __v: 0
+}
+2024-06-07 02:58:35 error: ReferenceError: authMiddleware is not defined
+    at addBook (E:\library-s-inventory\backend\controllers\booksController.js:18:22)
+    at Layer.handle [as handle_request] (E:\library-s-inventory\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (E:\library-s-inventory\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (E:\library-s-inventory\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (E:\library-s-inventory\backend\node_modules\express\lib\router\layer.js:95:5)
+    at E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:175:3)
+    at router (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:47:12)
+2024-06-07 02:59:12 info: Book has been added to library successfully. {
+  title: 'young minds',
+  author: 'JK Rowling',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2010,
+  _id: new ObjectId('666231302344a9adeca7d897'),
+  __v: 0
+}
+2024-06-07 02:59:45 info: Book has been added to library successfully. {
+  title: 'It starts with us',
+  author: 'smith wallace',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2015,
+  _id: new ObjectId('666231512344a9adeca7d89a'),
+  __v: 0
+}
+2024-06-07 02:59:54 info: Book has been added to library successfully. {
+  title: 'It ends with us',
+  author: 'smith wallace',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2018,
+  _id: new ObjectId('6662315a2344a9adeca7d89d'),
+  __v: 0
+}
+2024-06-07 03:00:21 info: Book has been added to library successfully. {
+  title: 'Harry Potter',
+  author: 'JK Rowling',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 1999,
+  _id: new ObjectId('666231752344a9adeca7d8a0'),
+  __v: 0
+}
+2024-06-07 03:01:28 warn: Unauthorized access attempt: No token provided
+2024-06-07 03:01:36 info: Book's information has been updated successfully. {
+  _id: new ObjectId('666231752344a9adeca7d8a0'),
+  title: 'Harry Potter',
+  author: 'JK Rowling',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2003,
+  __v: 0
+}
+2024-06-07 03:02:42 info: Book has been successfully deleted with id: 666231302344a9adeca7d897
+2024-06-07 03:03:59 info: Following books are present: {
+  _id: new ObjectId('666231512344a9adeca7d89a'),
+  title: 'It starts with us',
+  author: 'smith wallace',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2015,
+  __v: 0
+},{
+  _id: new ObjectId('6662315a2344a9adeca7d89d'),
+  title: 'It ends with us',
+  author: 'smith wallace',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2018,
+  __v: 0
+},{
+  _id: new ObjectId('666231752344a9adeca7d8a0'),
+  title: 'Harry Potter',
+  author: 'JK Rowling',
+  genre: 'drama',
+  borrowed: false,
+  borrowedBy: null,
+  publicationYear: 2003,
+  __v: 0
+}
+2024-06-07 03:04:49 warn: Book not found: ID 665f38ee288e2723cc0ce2f3
+2024-06-07 03:05:05 info: Book borrowed successfully: Title It starts with us, User undefined
+2024-06-07 03:05:39 info: The boooks borrowed by the user: undefined are following: {
+  _id: new ObjectId('666231512344a9adeca7d89a'),
+  title: 'It starts with us',
+  author: 'smith wallace',
+  genre: 'drama',
+  borrowed: true,
+  borrowedBy: new ObjectId('66622eb02ebb91007ec2baa4'),
+  publicationYear: 2015,
+  __v: 0
+} 
+2024-06-07 03:05:50 warn: Book not found: ID 665f38a8288e2723cc0ce2ef
+2024-06-07 03:06:02 warn: Book not found: ID 666231302344a9adeca7d897
+2024-06-07 03:06:21 warn: You have not borrowed following book: Title It ends with us
+2024-06-07 03:06:31 info: Book returned successfully: Title It starts with us, User undefined

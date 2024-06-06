@@ -1,0 +1,11 @@
+2024-06-07 02:58:35 error: ReferenceError: authMiddleware is not defined
+    at addBook (E:\library-s-inventory\backend\controllers\booksController.js:18:22)
+    at Layer.handle [as handle_request] (E:\library-s-inventory\backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (E:\library-s-inventory\backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (E:\library-s-inventory\backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (E:\library-s-inventory\backend\node_modules\express\lib\router\layer.js:95:5)
+    at E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:346:12)
+    at next (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:175:3)
+    at router (E:\library-s-inventory\backend\node_modules\express\lib\router\index.js:47:12)
